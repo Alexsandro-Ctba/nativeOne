@@ -24,7 +24,7 @@ export function Home() {
 
   function handleAddNewSkill() {
     const data ={
-      id: String(new Date().getTime()),
+      id: String(new Date().getTime()),    
       name:newSkill
     }
     // esta função atualiza o estado de mySkills
