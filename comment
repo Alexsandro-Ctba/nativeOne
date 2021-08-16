@@ -1,0 +1,28 @@
+# Com os Hooks podemos criar componentes utilizando as funções.
+
+# Ele traz facilidades para lidar com estado.
+
+# Todo o Hook começa com use, por exemplo:
+
+* useState: 
+serve para armazenar um estado, ou seja podemos armazenar qualquer coisa na interface 
+ao ponto que se atualize dinamicamente;
+
+sintaxe: const [estado, função_que_atualiza_o_estado] = useState('')
+
+* UseEffect: 
+No momento em que montamos o componente para ser exibido para o usuario o useEffect é 
+disparado.
+
+sintaxe: 
+primeiro parametro um arrow function, segundo quais as dependencias inserir
+
+O useEffect é muito utilizado em momentos em que voce precisa de uma API buscar informações
+como por exemplos buscar produtos para serem exibidos na tela.
+Quando voce quer carregar uma unica vez tu pode deixar as dependencias vazias.
+
+useEffect(()=>{
+
+}, [dependencias, dependencias]))
+
+
