@@ -1,69 +1,53 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button } from '../components/button';
+import { SkillCard } from '../components/SkillCard';
 
-export function Home(){
-
-  const [newSkill, setNewSkill] = useState()
+export function Home() {
+  const [newSkill, setNewSkill] = useState();
   const [mySkill, setMySkill] = useState([]);
 
-  function handleAddSkill(){
-    setMySkill(oldState =>[...oldState, newSkill])
+  function handleAddNewSkill() {
+    setMySkill(oldState => [...oldState, newSkill]);
   }
-  return(
+  return (
     <View style={styles.container}>
-      <Text style={styles.initial}>Configurando Skills</Text>
+      <Text style={styles.initial}>List of Skill</Text>
 
-      <TextInput style={styles.input}
-      placeholder="Insert new Skill here"
-      placeholderTextColor='#555'
-      //na alteração efetua-se o setNellSkill
-      onChangeText={setNewSkill}/>
+      <TextInput
+        style={styles.input}
+        placeholder="Informe sua Skill"
+        placeholderTextColor="#555"
+        onChangeText={setNewSkill}
+      />
 
-      <TouchableOpacity style={styles.addButton}
-      activeOpacity={0.7}
-      //no pressionando do button efetua-se o handleAddSkill
-      onPress={handleAddSkill}>
-        <Text style={styles.addButtonText}>Add</Text>
-      </TouchableOpacity>
+      <Button onPress={handleAddNewSkill} />
 
-      <Text style={[styles.title, {marginVertical:50}]}>My Skills</Text>
+      <Text style={[styles.initial, {marginVertical: 50}]}>My Skills</Text>
 
-      {
-        //percorrendo o Array myskill
-        mySkill.map(skill=>(
-          <TouchableOpacity key={skill} style={[styles.buttonSkill]}>
-          <Text style={styles.textSkill}>
-      {skill}
-          </Text>
-        </TouchableOpacity>
-        ))
-      }
+      {mySkill.map(skill => (
+        <SkillCard skill={skill} key={skill}/>
+      ))}
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor:'#121015'
+  container: {
+    flex: 1,
+    backgroundColor: '#121015',
   },
-  initial:{color:'#fff',
-  fontWeight:'bold',
-  fontSize:18,
-  marginVertical:20,
-  marginHorizontal:20
-},
-input:{backgroundColor:'#1f1e25',borderRadius:7, marginHorizontal:20,
-padding:10,fontSize:18,color:'#fff'},
-addButtonText:{
-  color:'#fff', fontSize:18,fontWeight:'bold'
-},
-addButton:{
-  backgroundColor:'#a370f7',padding:10,marginHorizontal:20,borderRadius:7,
-  marginVertical:10,alignItems:'center'
-},
-title:{color:'#fff', fontSize:18,marginLeft:20},
-buttonSkill:{backgroundColor:'#1f1e25',marginHorizontal:20,padding:20
-,borderRadius:50,alignItems:'center',marginVertical:5},
-textSkill:{color:'#fff',fontSize:24, textTransform:"uppercase"}
-})
+  initial: {
+    color: '#fff',
+    fontSize: 18,
+    marginVertical: 30,
+    marginHorizontal: 30,
+  },
+  input: {
+    backgroundColor: '#1f1e25',
+    marginHorizontal: 20,
+    borderRadius: 10,
+    color: '#fff',
+    fontSize: 20,
+  },
+});
