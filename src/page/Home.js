@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { Button } from '../components/button';
-import { SkillCard } from '../components/SkillCard';
+import React, {useState} from 'react';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button} from '../components/button';
+import {SkillCard} from '../components/SkillCard';
 
 export function Home() {
   const [newSkill, setNewSkill] = useState();
@@ -26,7 +26,7 @@ export function Home() {
       <Text style={[styles.initial, {marginVertical: 50}]}>My Skills</Text>
 
       {mySkill.map(skill => (
-        <SkillCard skill={skill} key={skill}/>
+        <SkillCard skill={skill} key={skill} />
       ))}
     </View>
   );
