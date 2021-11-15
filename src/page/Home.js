@@ -1,56 +1,43 @@
 import React, { useState } from "react";
-import {
-  Platform, StyleSheet, Text, TextInput, TouchableOpacity, View
-} from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
+export function Home(){
 
-export default function Home(){
-  // armazena apenas 1 skill
-  const [newSkill, setNewSkill] = useState();
-   //armazena todas as skills 
-   const [mySkills, setMySkills] = useState([]);
+  const [newSkill, setNewSkill] = useState()
+  const [mySkill, setMySkill] = useState([]);
 
-   //usar handle quando o processo partir do clique de usuários
-   function handleAddNewSkill(){
-      setMySkills(oldState => [...mySkills, newSkill])
-   }
-
+  function handleAddSkill(){
+    setMySkill(oldState =>[...oldState, newSkill])
+  }
   return(
     <View style={styles.container}>
-      <Text style={styles.title}>
-        NativeOne
-      </Text>
+      <Text style={styles.initial}>Configurando Skills</Text>
 
-      <TextInput 
-      style={styles.input}
-      placeholder="insira o valor aqui"
-      placeholderTextColor="#555"
-      onChangeText={setNewSkill}
-      />
-      {/* exibindo botão = button
-        activeOpacity = controlando a opacidade no clique
-      */}
-      <TouchableOpacity style={styles.button} activeOpacity={0.7}
-        onPressIn={handleAddNewSkill}
-      >
-      <Text style={styles.buttonText}>Add</Text>
-      
+      <TextInput style={styles.input}
+      placeholder="Insert new Skill here"
+      placeholderTextColor='#555'
+      //na alteração efetua-se o setNellSkill
+      onChangeText={setNewSkill}/>
+
+      <TouchableOpacity style={styles.addButton}
+      activeOpacity={0.7}
+      //no pressionando do button efetua-se o handleAddSkill
+      onPress={handleAddSkill}>
+        <Text style={styles.addButtonText}>Add</Text>
       </TouchableOpacity>
-      
-      {/* colocando margin de 50 em cima e amabixo */}
-      <Text style={[styles.title, {marginVertical:50}]}>
-        My Skills
-      </Text>
 
- {     
-  mySkills.map(skills  =>(
-    <TouchableOpacity key={skills} style={styles.buttonSkill}>
-    <Text style={[styles.textSkill]}>
-        {skills}
-    </Text> 
-    </TouchableOpacity>
-  ))
-}
+      <Text style={[styles.title, {marginVertical:50}]}>My Skills</Text>
+
+      {
+        //percorrendo o Array myskill
+        mySkill.map(skill=>(
+          <TouchableOpacity key={skill} style={[styles.buttonSkill]}>
+          <Text style={styles.textSkill}>
+      {skill}
+          </Text>
+        </TouchableOpacity>
+        ))
+      }
     </View>
   )
 }
@@ -58,44 +45,25 @@ export default function Home(){
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    paddingHorizontal:20,
-    paddingHorizontal:70,
-    paddingHorizontal:30,
     backgroundColor:'#121015'
   },
-  title:{
-    color:'#fff',
-    fontSize:24,
-    fontWeight:'bold'
-  },
-  input:{
-    backgroundColor:'#1f1e25',
-    color:'#fff',
-    borderRadius:5,
-    fontSize:18,
-    padding:Platform.OS ==='ios'? 15 : 10,marginTop:30
-  },
-  button:{
-    backgroundColor:'#a370f7',
-    padding:15,
-    borderRadius:7,
-    textAlign:'center',
-    alignItems:'center', marginTop:20
-  },
-  buttonText:{
-    color:'#fff',fontSize:17, fontWeight:'bold'
-  },
-
-  textSkill:{
-    color:'#fff', fontSize:22, 
-    fontWeight:'bold',
-   
-  },
-  buttonSkill:{
-    borderRadius:50,
-    padding:15,
-    backgroundColor:'#1f1e25', 
-    alignItems:'center',
-    marginVertical:3
-  }
+  initial:{color:'#fff',
+  fontWeight:'bold',
+  fontSize:18,
+  marginVertical:20,
+  marginHorizontal:20
+},
+input:{backgroundColor:'#1f1e25',borderRadius:7, marginHorizontal:20,
+padding:10,fontSize:18,color:'#fff'},
+addButtonText:{
+  color:'#fff', fontSize:18,fontWeight:'bold'
+},
+addButton:{
+  backgroundColor:'#a370f7',padding:10,marginHorizontal:20,borderRadius:7,
+  marginVertical:10,alignItems:'center'
+},
+title:{color:'#fff', fontSize:18,marginLeft:20},
+buttonSkill:{backgroundColor:'#1f1e25',marginHorizontal:20,padding:20
+,borderRadius:50,alignItems:'center',marginVertical:5},
+textSkill:{color:'#fff',fontSize:24, textTransform:"uppercase"}
 })
