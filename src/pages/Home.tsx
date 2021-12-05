@@ -1,34 +1,52 @@
 import React, { useEffect, useState } from "react";
 import {
   FlatList,
-  Platform, StatusBar, StyleSheet, Text,
+  Platform, StyleSheet, Text,
   TextInput, View
 } from "react-native";
 import { Button } from "./components/Button";
 import { Skillcard } from "./components/Skillcard";
 
+interface SkillData{
+  id:string;
+  name:string;
+}
 
-export function Home() {
+export function Home(){
   const [newSkill, setNewSkill] = useState('valor padrão');
-  const [mySkill, setMyskill] = useState([]);
+  const [mySkill, setMyskill] = useState<SkillData[]>([]);
   const [greeting, setGreeting] = useState('');
-
-  function handleAddNewSkill() {
+//function para add skill
+  function handleAddNewSkill(){
+ const data={
+   id:String(new Date().getTime()),
+   name:newSkill
+ }
     //oldstate recupera os dados que já estavam dentro de MySkill
-    setMyskill(oldstate => [...oldstate, newSkill]);
+    setMyskill(oldstate => [...oldstate, data]);
   }
+
+  //function para remover skill
+  function handleRemoveSkiLL(id:string){
+      setMyskill(oldState => oldState.filter(
+        item => item.id !== id
+      ))
+  }
+
   useEffect(() => {
-    const currentHour = new Date().getHours();
+   const currentHour = new Date().getHours();
     if (currentHour < 12) {
       setGreeting('Bom dia')
+       console.log(currentHour)
     } else if (currentHour >= 12 && currentHour < 18) {
       setGreeting('Boa noite')
+      console.log(currentHour)
     }
   }, [])
 
   return (
     <View style={styles.container}>
-     
+
       <Text style={styles.title}>Bem vindo!</Text>
       <Text style={styles.greetings}>
         {greeting}
@@ -39,7 +57,10 @@ export function Home() {
         onChangeText={setNewSkill}
       />
 
-      <Button onPress={handleAddNewSkill} />
+      <Button onPress={handleAddNewSkill}
+
+      title="Add"//envia a propriedade title para o button
+      />
 
       <Text style={[styles.title, { marginVertical: 50 }]}>
         My Skills
@@ -49,9 +70,12 @@ export function Home() {
       <FlatList
 
         data={mySkill}
-        keyExtractor={item => item}
+        keyExtractor={item => item.id}
         renderItem={({ item }) => (
-          <Skillcard item={item} />
+          <Skillcard item={item.name} 
+          //passando function de parametro para apagar skill
+          onPress={() => handleRemoveSkiLL(item.id)}
+          />
         )}
       />
     </View>
